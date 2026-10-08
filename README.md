@@ -791,3 +791,9 @@ Contributions are welcome. Please see [CONTRIBUTING.md](CONTRIBUTING.md) for cod
 <p align="center">
   Built by <a href="https://zoharbabin.com">Zohar Babin</a>, with <a href="https://go.dev">Go</a> and the <a href="https://modelcontextprotocol.io/">Model Context Protocol</a>
 </p>
+
+## Serper-compatible endpoints
+
+Support any Serper.dev-compatible endpoint (like litescrape.com, serpbase.dev, serpensapi.org, and others).
+
+Set `SERPER_BASE_URL` to the provider base URL; the default is `https://google.serper.dev`. Search, image search, and news requests append their existing route to this URL. Continue using `SERPER_API_KEY` for authentication.

@@ -365,6 +365,7 @@ Note: Google keys are validated as required only when you explicitly select `SEA
 | `BRAVE_API_KEY` | Brave Search API key | — |
 | `BRAVE_EXTRA_SNIPPETS` | Return up to 5 extra snippets per Brave result | `false` |
 | `SERPER_API_KEY` | Serper.dev API key | — |
+| `SERPER_BASE_URL` | Serper-compatible API base URL | `https://google.serper.dev` |
 | `SEARCHAPI_API_KEY` | SearchAPI.io API key | — |
 | `YOUDOTCOM_API_KEY` | You.com Search API key for web/news search results and query-aware snippets | — |
 | `TAVILY_API_KEY` | Tavily API key (AI-agent search; sent as a Bearer token) | — |

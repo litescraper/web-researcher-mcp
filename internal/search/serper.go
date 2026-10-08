@@ -7,18 +7,25 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
+	"strings"
 	"time"
 
 	"github.com/zoharbabin/web-researcher-mcp/internal/circuit"
 )
 
 type SerperProvider struct {
-	apiKey string
-	deps   Deps
+	apiKey  string
+	baseURL string
+	deps    Deps
 }
 
 func NewSerperProvider(apiKey string, deps Deps) *SerperProvider {
-	return &SerperProvider{apiKey: apiKey, deps: deps}
+	baseURL := os.Getenv("SERPER_BASE_URL")
+	if baseURL == "" {
+		baseURL = "https://google.serper.dev"
+	}
+	return &SerperProvider{apiKey: apiKey, baseURL: strings.TrimRight(baseURL, "/"), deps: deps}
 }
 
 func (s *SerperProvider) Name() string { return "serper" }
@@ -65,7 +72,7 @@ func (s *SerperProvider) doWebSearch(ctx context.Context, params WebSearchParams
 		body["hl"] = params.Language
 	}
 
-	respBody, err := s.doRequest(ctx, "https://google.serper.dev/search", body)
+	respBody, err := s.doRequest(ctx, s.baseURL+"/search", body)
 	if err != nil {
 		return nil, err
 	}
@@ -93,7 +100,7 @@ func (s *SerperProvider) doImageSearch(ctx context.Context, params ImageSearchPa
 		"num": clamp(params.NumResults, 1, 10),
 	}
 
-	respBody, err := s.doRequest(ctx, "https://google.serper.dev/images", body)
+	respBody, err := s.doRequest(ctx, s.baseURL+"/images", body)
 	if err != nil {
 		return nil, err
 	}
@@ -121,7 +128,7 @@ func (s *SerperProvider) doNewsSearch(ctx context.Context, params NewsSearchPara
 		"num": clamp(params.NumResults, 1, 10),
 	}
 
-	respBody, err := s.doRequest(ctx, "https://google.serper.dev/news", body)
+	respBody, err := s.doRequest(ctx, s.baseURL+"/news", body)
 	if err != nil {
 		return nil, err
 	}
